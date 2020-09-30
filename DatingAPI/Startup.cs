@@ -33,6 +33,7 @@ namespace DatingAPP.DatingAPI
                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
            });
             services.AddControllers();
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingAPI", Version = "v1" });
@@ -52,6 +53,8 @@ namespace DatingAPP.DatingAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
 
             app.UseAuthorization();
 
